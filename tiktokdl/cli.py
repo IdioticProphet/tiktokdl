@@ -1,11 +1,12 @@
 import argparse
-from .tiktokdl import tiktokdl
+from .tiktokdl import TikTok
 
 def cli(url, output_path) -> None:
-    video_content = tiktokdl(url)
     print("Saved to " + output_path)
     with open(output_path, "wb") as fd:
-        fd.write(video_content)
+        video = TikTok(url)
+        video.download(fd)
+        
 
 def main():
     parser = argparse.ArgumentParser(
