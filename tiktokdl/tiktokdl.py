@@ -37,9 +37,13 @@ class TikTok:
             raise(e)
     
     def get_meta(self, url):
-        user_agent = "Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:87.0) Gecko/20100101 Firefox/87.0"
+        headers = {
+        "user-agent": ("Mozilla/5.0 (Windows NT 10.0; Win64; x64) "
+                       "AppleWebKit/537.36 (KHTML, like Gecko) "
+                       "Chrome/86.0.4240.111 Safari/537.36")
+        }
 
-        response = requests.get(url, headers={"User-Agent": user_agent})
+        response = requests.get(url, headers=headers)
         self.tt_webid_v2 = response.cookies["tt_webid_v2"]
 
         if not response.ok:
@@ -82,8 +86,9 @@ class TikTok:
         "Connection": "keep-alive",
         "Range": "bytes=0-",
         "Referer": "https://www.tiktok.com/",
-        "User-Agent": "Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:87.0) "
-        "Gecko/20100101 Firefox/87.0",
+        "User-Agent": ("Mozilla/5.0 (Windows NT 10.0; Win64; x64) "
+                       "AppleWebKit/537.36 (KHTML, like Gecko) "
+                       "Chrome/86.0.4240.111 Safari/537.36"),
         }
         video = requests.get(
             self.video.cdn_link, headers=headers, cookies={"tt_webid_v2": self.tt_webid_v2}
